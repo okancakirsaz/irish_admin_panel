@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:irish_admin_panel/views/main_view/view/main_view.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../viewmodel/landing_viewmodel.dart';
@@ -15,7 +16,7 @@ class LandingView extends StatelessWidget {
               future: model.init(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return const Scaffold();
+                  return const MainView();
                 } else {
                   return const Scaffold(
                       body: Center(child: CircularProgressIndicator()));

@@ -30,18 +30,15 @@ class CustomButtonNavBar extends StatelessWidget {
                 elevation: 4,
                 items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
-                    label: "Topluluk",
-                    icon: buildIcon(AssetConsts.instance.events),
+                    label: "Siparişler",
+                    icon: buildIcon(AssetConsts.instance.beer),
                   ),
                   BottomNavigationBarItem(
                       label: "Menü",
                       icon: buildIcon(AssetConsts.instance.menu)),
                   BottomNavigationBarItem(
-                      label: "Oyunlar",
-                      icon: buildIcon(AssetConsts.instance.games)),
-                  BottomNavigationBarItem(
-                      label: "Profilim",
-                      icon: buildIcon(AssetConsts.instance.profile))
+                      label: "Kullanıcılar",
+                      icon: buildIcon(AssetConsts.instance.profile)),
                 ]);
           });
         },
