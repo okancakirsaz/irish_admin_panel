@@ -41,6 +41,22 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
     });
   }
 
+  late final _$materialsAtom =
+      Atom(name: '_MenuViewModelBase.materials', context: context);
+
+  @override
+  ObservableList<String> get materials {
+    _$materialsAtom.reportRead();
+    return super.materials;
+  }
+
+  @override
+  set materials(ObservableList<String> value) {
+    _$materialsAtom.reportWrite(value, super.materials, () {
+      super.materials = value;
+    });
+  }
+
   late final _$pickedImageAtom =
       Atom(name: '_MenuViewModelBase.pickedImage', context: context);
 
@@ -83,11 +99,37 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
         .run(() => super.pickImageFromGallery());
   }
 
+  late final _$_MenuViewModelBaseActionController =
+      ActionController(name: '_MenuViewModelBase', context: context);
+
+  @override
+  dynamic addMaterial() {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase.addMaterial');
+    try {
+      return super.addMaterial();
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic deleteMaterial(int index) {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase.deleteMaterial');
+    try {
+      return super.deleteMaterial(index);
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 isLoadSuccessful: ${isLoadSuccessful},
 allMenu: ${allMenu},
+materials: ${materials},
 pickedImage: ${pickedImage}
     ''';
   }

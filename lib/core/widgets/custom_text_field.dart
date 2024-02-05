@@ -9,13 +9,15 @@ class CustomTextField extends StatelessWidget {
   final TextStyle style;
   final TextInputType? inputType;
   final double height;
+  final bool? isReadOnly;
   const CustomTextField(
       {super.key,
       this.padding,
       required this.controller,
       required this.height,
       required this.style,
-      this.inputType});
+      this.inputType,
+      this.isReadOnly});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class CustomTextField extends StatelessWidget {
             color: ColorConsts.instance.lightGray,
             borderRadius: RadiusConsts.instance.circularAll100),
         child: TextFormField(
+          readOnly: isReadOnly ?? false,
           keyboardType: inputType,
           inputFormatters: inputType == TextInputType.phone ||
                   inputType == TextInputType.number

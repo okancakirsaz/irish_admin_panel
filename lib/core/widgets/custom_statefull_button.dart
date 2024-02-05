@@ -21,14 +21,14 @@ class CustomStateFullButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width,
+      height: height,
       decoration: BoxDecoration(
           color: ColorConsts.instance.lightGray,
           border: Border.all(),
           borderRadius: RadiusConsts.instance.circularAll100),
       child: EasyButton(
           type: EasyButtonType.text,
-          width: width,
-          height: height,
           buttonColor: ColorConsts.instance.lightGray,
           borderRadius: 100,
           onPressed: onPressed,

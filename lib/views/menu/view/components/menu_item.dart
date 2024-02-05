@@ -8,14 +8,18 @@ class MenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: PaddingConsts.instance.bottom25,
+      padding: PaddingConsts.instance.bottom5,
       margin: PaddingConsts.instance.all5,
       decoration: BoxDecoration(
           borderRadius: RadiusConsts.instance.circularAll10,
           color: ColorConsts.instance.green,
           boxShadow: ColorConsts.instance.shadow),
       child: Column(
-        children: <Widget>[elementImage(), Expanded(child: elementInfo())],
+        children: <Widget>[
+          elementImage(),
+          Expanded(child: elementInfo()),
+          deleteOrEditBar()
+        ],
       ),
     );
   }
@@ -36,7 +40,7 @@ class MenuItem extends StatelessWidget {
     return ListTile(
       title: Text(
         data.name!,
-        style: TextConsts.instance.regularWhite25Bold,
+        style: TextConsts.instance.regularWhite20Bold,
       ),
       trailing: Text(
         "${data.price!}₺",
@@ -46,6 +50,30 @@ class MenuItem extends StatelessWidget {
         data.materials!.join(", "),
         style: TextConsts.instance.regularWhite16,
       ),
+    );
+  }
+
+  Widget deleteOrEditBar() {
+    return Row(
+      children: <Widget>[
+        IconButton(
+          onPressed: () async =>
+              viewModel.navigateToCreateOrEditElementView(viewModel, data),
+          icon: const Icon(
+            Icons.edit,
+            size: 30,
+            color: Colors.black,
+          ),
+        ),
+        IconButton(
+          onPressed: () async => await viewModel.deleteMenuElement(data),
+          icon: Icon(
+            Icons.delete,
+            size: 30,
+            color: ColorConsts.instance.red,
+          ),
+        ),
+      ],
     );
   }
 }

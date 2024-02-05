@@ -10,7 +10,17 @@ abstract mixin class BaseViewModel {
   void init() {}
   final ScrollController defaultScrollController = ScrollController();
 
-  showErrorDialog() {
-    showDialog(context: viewModelContext, builder: (context) => ErrorDialog());
+  showErrorDialog([String? reason]) {
+    showDialog(
+        context: viewModelContext,
+        builder: (context) => ErrorDialog(
+              reason: reason,
+            ));
+  }
+
+  navigatorPop() {
+    if (Navigator.canPop(viewModelContext)) {
+      Navigator.pop(viewModelContext);
+    }
   }
 }

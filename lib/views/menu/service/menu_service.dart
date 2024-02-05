@@ -19,4 +19,26 @@ final class MenuServices extends NetworkManager {
       return null;
     }
   }
+
+  //We are getting url parameter because this function using for update or set new menu element
+  Future<MenuItemModel?> setMenuElement(MenuItemModel data, String url) async {
+    try {
+      final response = await network.post(url, data: data.toJson());
+      return MenuItemModel.fromJson(response.data);
+    } catch (_) {
+      debugPrint(_.toString());
+      return null;
+    }
+  }
+
+  Future<MenuItemModel?> deleteMenuElement(MenuItemModel data) async {
+    try {
+      final response = await network.post(AppConst.instance.deleteMenuElement,
+          data: data.toJson());
+      return MenuItemModel.fromJson(response.data);
+    } catch (_) {
+      debugPrint(_.toString());
+      return null;
+    }
+  }
 }
