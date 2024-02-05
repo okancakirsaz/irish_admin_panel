@@ -109,6 +109,14 @@ class TextConsts {
     );
   }
 
+  TextStyle get regularBlack14 {
+    return GoogleFonts.montserrat(
+      fontSize: 14,
+      color: Colors.black,
+      fontWeight: FontWeight.normal,
+    );
+  }
+
   TextStyle get regularGreen14Bold {
     return GoogleFonts.montserrat(
       fontSize: 14,

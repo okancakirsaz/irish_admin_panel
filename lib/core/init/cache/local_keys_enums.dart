@@ -1,3 +1,1 @@
-enum LocaleKeysEnums {
-  menu,
-}
+enum LocaleKeysEnums { menu, users }

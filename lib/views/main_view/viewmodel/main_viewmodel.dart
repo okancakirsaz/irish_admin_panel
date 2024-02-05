@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irish_admin_panel/views/menu/view/menu_view.dart';
+import 'package:irish_admin_panel/views/users/view/users_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 
@@ -27,9 +28,7 @@ abstract class _MainViewModelBase with Store, BaseViewModel {
       backgroundColor: Colors.blue,
     ),
     const MenuView(),
-    const Scaffold(
-      backgroundColor: Colors.pink,
-    ),
+    const UsersView()
   ]);
 
   @action
