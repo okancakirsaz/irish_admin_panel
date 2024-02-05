@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irish_admin_panel/views/menu/view/menu_view.dart';
+import 'package:irish_admin_panel/views/orders/view/orders_view.dart';
 import 'package:irish_admin_panel/views/users/view/users_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
@@ -23,13 +24,8 @@ abstract class _MainViewModelBase with Store, BaseViewModel {
   }
 
   @observable
-  ObservableList<Widget> pages = ObservableList.of(<Widget>[
-    const Scaffold(
-      backgroundColor: Colors.blue,
-    ),
-    const MenuView(),
-    const UsersView()
-  ]);
+  ObservableList<Widget> pages = ObservableList.of(
+      <Widget>[const OrdersView(), const MenuView(), const UsersView()]);
 
   @action
   Widget changePage(int index) {
