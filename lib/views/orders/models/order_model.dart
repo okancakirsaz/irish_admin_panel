@@ -1,4 +1,4 @@
-class OrderResponseModel {
+class OrderModel {
   List<dynamic> orderList;
   int totalPrice;
   String timestamp;
@@ -6,7 +6,7 @@ class OrderResponseModel {
   String userId;
   int orderId;
 
-  OrderResponseModel({
+  OrderModel({
     required this.orderList,
     required this.userId,
     required this.totalPrice,
@@ -26,8 +26,8 @@ class OrderResponseModel {
     };
   }
 
-  factory OrderResponseModel.fromJson(Map<String, dynamic> json) {
-    return OrderResponseModel(
+  factory OrderModel.fromJson(Map<String, dynamic> json) {
+    return OrderModel(
         orderList: (json['orderList'] as List<dynamic>)
             .map((e) => e as dynamic)
             .toList(),
@@ -40,7 +40,7 @@ class OrderResponseModel {
 
   @override
   String toString() =>
-      "OrderResponseModel(orderList: $orderList,totalPrice: $totalPrice,timestamp: $timestamp,isOrderReady: $isOrderReady,orderId: $orderId)";
+      "OrderModel(orderList: $orderList,totalPrice: $totalPrice,timestamp: $timestamp,isOrderReady: $isOrderReady,orderId: $orderId)";
 
   @override
   int get hashCode =>
@@ -49,7 +49,7 @@ class OrderResponseModel {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is OrderResponseModel &&
+      other is OrderModel &&
           runtimeType == other.runtimeType &&
           orderList == other.orderList &&
           totalPrice == other.totalPrice &&

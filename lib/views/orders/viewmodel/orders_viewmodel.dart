@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:irish_admin_panel/views/orders/models/order_response_model.dart';
+import 'package:irish_admin_panel/views/orders/models/order_model.dart';
+import 'package:irish_admin_panel/views/orders/view/orders_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 
@@ -18,17 +19,16 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
   final OrdersServices services = OrdersServices();
 
   @observable
-  ObservableList<OrderResponseModel> orders =
-      ObservableList<OrderResponseModel>.of([]);
+  ObservableList<OrderModel> orders = ObservableList<OrderModel>.of([]);
 
   //Returning random data because this function using in a FutureBuilder
   @action
   Future<int> getOrders() async {
-    final List<OrderResponseModel>? response = await services.getAllOrders();
+    final List<OrderModel>? response = await services.getAllOrders();
     if (response == null) {
       showErrorDialog();
     } else {
-      orders = ObservableList<OrderResponseModel>.of(response);
+      orders = ObservableList<OrderModel>.of(response);
     }
     return 1;
   }
@@ -39,5 +39,27 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
       refactoredString += "${orderList[i]["name"]} x${orderList[i]["count"]}";
     }
     return refactoredString;
+  }
+
+  @action
+  Future<void> deleteOrder(OrderModel data) async {
+    if (!data.isOrderReady) {
+      showErrorDialog("Tamamlanmayan sipariş silinemez!");
+    } else {
+      final OrderModel? response = await services.deleteOrder(data);
+
+      if (response != null) {
+        orders.remove(data);
+      }
+    }
+  }
+
+  navigateToCreateOrderPage() {
+    Navigator.push(
+      viewModelContext,
+      MaterialPageRoute(
+        builder: (context) => const CreateOrderView(),
+      ),
+    );
   }
 }

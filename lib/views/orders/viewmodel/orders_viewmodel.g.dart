@@ -13,13 +13,13 @@ mixin _$OrdersViewModel on _OrdersViewModelBase, Store {
       Atom(name: '_OrdersViewModelBase.orders', context: context);
 
   @override
-  ObservableList<OrderResponseModel> get orders {
+  ObservableList<OrderModel> get orders {
     _$ordersAtom.reportRead();
     return super.orders;
   }
 
   @override
-  set orders(ObservableList<OrderResponseModel> value) {
+  set orders(ObservableList<OrderModel> value) {
     _$ordersAtom.reportWrite(value, super.orders, () {
       super.orders = value;
     });
