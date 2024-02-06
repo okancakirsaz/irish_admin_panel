@@ -86,7 +86,8 @@ class OrdersView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           IconButton(
-                            onPressed: () async {},
+                            onPressed: () async =>
+                                viewModel.changeOrderState(order, index),
                             icon: Icon(
                               Icons.done,
                               color: ColorConsts.instance.green,

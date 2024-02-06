@@ -32,6 +32,17 @@ final class OrdersServices extends NetworkManager {
     }
   }
 
+  Future<OrderModel?> submitOrder(OrderModel data) async {
+    try {
+      final response = await network.post(AppConst.instance.changeOrderState,
+          data: data.toJson());
+      return OrderModel.fromJson(response.data);
+    } catch (_) {
+      debugPrint(_.toString());
+      return null;
+    }
+  }
+
   //TODO: After backend fix handle here
   //For try
   handleWebSocket() async {

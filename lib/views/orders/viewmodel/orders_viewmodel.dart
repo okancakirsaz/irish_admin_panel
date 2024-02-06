@@ -62,4 +62,14 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
       ),
     );
   }
+
+  @action
+  Future<void> changeOrderState(OrderModel data, int index) async {
+    final OrderModel? response = await services.submitOrder(data);
+    if (response != null) {
+      orders[index] = response;
+    } else {
+      showErrorDialog();
+    }
+  }
 }
