@@ -27,7 +27,7 @@ class UsersView extends StatelessWidget {
           model.init();
           model.setContext(context);
         },
-        onDispose: () {});
+        onDispose: (model) {});
   }
 
   Widget buildUsers(UsersViewModel viewModel) {

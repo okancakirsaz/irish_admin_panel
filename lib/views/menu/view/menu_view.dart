@@ -54,7 +54,7 @@ class MenuView extends StatelessWidget {
           model.init();
           model.setContext(context);
         },
-        onDispose: () {});
+        onDispose: (model) {});
   }
 
   Widget buildMenu(MenuViewModel viewModel) {

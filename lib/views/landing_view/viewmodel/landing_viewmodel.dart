@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:irish_admin_panel/core/init/web_socket_manager.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 
@@ -11,6 +12,7 @@ abstract class _LandingViewModelBase with Store, BaseViewModel {
   void setContext(BuildContext context) => viewModelContext = context;
   @override
   Future<int> init() async {
+    WebSocketManager.instance.initializeSocketConnection();
     await localeManager.getSharedPreferencesInstance();
     return 1;
   }

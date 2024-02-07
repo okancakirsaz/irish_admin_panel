@@ -27,6 +27,6 @@ class MainView extends StatelessWidget {
           model.init();
           model.setContext(context);
         },
-        onDispose: () {});
+        onDispose: (model) {});
   }
 }

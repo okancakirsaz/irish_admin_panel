@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:irish_admin_panel/core/init/web_socket_manager.dart';
 import 'package:irish_admin_panel/views/main_view/view/main_view.dart';
 
 import '../../../core/base/view/base_view.dart';
@@ -24,8 +25,11 @@ class LandingView extends StatelessWidget {
               });
         },
         onModelReady: (model) {
+          model.init();
           model.setContext(context);
         },
-        onDispose: () {});
+        onDispose: (model) {
+          WebSocketManager.instance.disconnectFromSocket();
+        });
   }
 }

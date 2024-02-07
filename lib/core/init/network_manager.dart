@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -22,5 +21,7 @@ abstract class NetworkManager {
     } else {
       network.options.baseUrl = localHost;
     }
+
+    return network.options.baseUrl;
   }
 }

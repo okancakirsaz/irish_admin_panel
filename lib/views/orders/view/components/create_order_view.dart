@@ -33,6 +33,11 @@ class CreateOrderView extends StatelessWidget {
   }
 
   Widget buildInputs() {
-    return ListView.builder(itemCount: 1, itemBuilder: (context, index) {});
+    return ListView.builder(
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          //TODO:Sort menu elements here
+          return Container();
+        });
   }
 }

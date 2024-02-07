@@ -43,7 +43,7 @@ class CustomButtonNavBar extends StatelessWidget {
           });
         },
         onModelReady: (model) {},
-        onDispose: () {});
+        onDispose: (model) {});
   }
 
   Widget buildIcon(String path) {

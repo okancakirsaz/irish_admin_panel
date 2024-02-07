@@ -33,6 +33,37 @@ mixin _$OrdersViewModel on _OrdersViewModelBase, Store {
     return _$getOrdersAsyncAction.run(() => super.getOrders());
   }
 
+  late final _$deleteOrderAsyncAction =
+      AsyncAction('_OrdersViewModelBase.deleteOrder', context: context);
+
+  @override
+  Future<void> deleteOrder(OrderModel data) {
+    return _$deleteOrderAsyncAction.run(() => super.deleteOrder(data));
+  }
+
+  late final _$changeOrderStateAsyncAction =
+      AsyncAction('_OrdersViewModelBase.changeOrderState', context: context);
+
+  @override
+  Future<void> changeOrderState(OrderModel data, int index) {
+    return _$changeOrderStateAsyncAction
+        .run(() => super.changeOrderState(data, index));
+  }
+
+  late final _$_OrdersViewModelBaseActionController =
+      ActionController(name: '_OrdersViewModelBase', context: context);
+
+  @override
+  dynamic handleNewOrder() {
+    final _$actionInfo = _$_OrdersViewModelBaseActionController.startAction(
+        name: '_OrdersViewModelBase.handleNewOrder');
+    try {
+      return super.handleNewOrder();
+    } finally {
+      _$_OrdersViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

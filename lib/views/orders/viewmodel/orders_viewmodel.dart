@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:irish_admin_panel/core/init/web_socket_manager.dart';
 import 'package:irish_admin_panel/views/orders/models/order_model.dart';
 import 'package:irish_admin_panel/views/orders/view/orders_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
@@ -14,7 +15,9 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
   @override
   void setContext(BuildContext context) => viewModelContext = context;
   @override
-  init() {}
+  init() {
+    handleNewOrder();
+  }
 
   final OrdersServices services = OrdersServices();
 
@@ -28,9 +31,18 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
     if (response == null) {
       showErrorDialog();
     } else {
-      orders = ObservableList<OrderModel>.of(response);
+      orders = ObservableList<OrderModel>.of(response.reversed.toList());
     }
     return 1;
+  }
+
+  @action
+  handleNewOrder() {
+    WebSocketManager.instance.webSocketReceiver("new_order", (data) {
+      if (data != null) {
+        orders.add(OrderModel.fromJson(data));
+      }
+    });
   }
 
   String orderListRefactor(List orderList) {

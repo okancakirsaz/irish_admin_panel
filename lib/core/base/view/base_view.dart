@@ -4,7 +4,7 @@ class BaseView<T> extends StatefulWidget {
   final T viewModel;
   final Widget Function(BuildContext context, T model) onPageBuilder;
   final void Function(T model) onModelReady;
-  final VoidCallback onDispose;
+  final Function(T model) onDispose;
   const BaseView({
     super.key,
     required this.viewModel,
@@ -26,7 +26,7 @@ class _BaseViewState<T> extends State<BaseView<T>> {
 
   @override
   void dispose() {
-    widget.onDispose();
+    widget.onDispose(widget.viewModel);
     super.dispose();
   }
 

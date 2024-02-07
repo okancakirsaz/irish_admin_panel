@@ -55,7 +55,7 @@ class OrdersView extends StatelessWidget {
           model.init();
           model.setContext(context);
         },
-        onDispose: () {});
+        onDispose: (model) {});
   }
 
   Widget buildOrders(OrdersViewModel viewModel) {
@@ -63,54 +63,66 @@ class OrdersView extends StatelessWidget {
       onRefresh: () async => await viewModel.getOrders(),
       color: ColorConsts.instance.orange,
       child: Observer(builder: (context) {
-        return ListView.builder(
-            itemCount: viewModel.orders.length,
-            itemBuilder: (context, index) {
-              OrderModel order = viewModel.orders[index];
+        if (viewModel.orders.isNotEmpty) {
+          return ListView.builder(
+              itemCount: viewModel.orders.length,
+              itemBuilder: (context, index) {
+                OrderModel order = viewModel.orders[index];
 
-              return Padding(
-                padding: PaddingConsts.instance.all5,
-                child: Card(
-                  child: ListTile(
-                    title: Text(
-                      "Sipariş Numarası: ${order.orderId}, Toplam Ücret: ${order.totalPrice}₺, ${order.isOrderReady ? "Hazır." : "Hazır değil."}",
-                      style: TextConsts.instance.regularBlack18Bold,
-                    ),
-                    subtitle: Text(
-                      "Sipariş Detayı: ${viewModel.orderListRefactor(order.orderList)}",
-                      style: TextConsts.instance.regularBlack14,
-                    ),
-                    trailing: SizedBox(
-                      width: 122,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          IconButton(
-                            onPressed: () async =>
-                                viewModel.changeOrderState(order, index),
-                            icon: Icon(
-                              Icons.done,
-                              color: ColorConsts.instance.green,
-                              size: 45,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () async =>
-                                await viewModel.deleteOrder(order),
-                            icon: Icon(
-                              Icons.delete,
-                              color: ColorConsts.instance.red,
-                              size: 45,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                return buildOrder(viewModel, order, index);
+              });
+        } else {
+          return Center(
+            child: Text(
+              "Henüz hiç sipariş yok.",
+              style: TextConsts.instance.regularBlack25Bold,
+            ),
+          );
+        }
+      }),
+    );
+  }
+
+  Widget buildOrder(OrdersViewModel viewModel, OrderModel order, int index) {
+    return Padding(
+      padding: PaddingConsts.instance.all5,
+      child: Card(
+        child: ListTile(
+          title: Text(
+            "Sipariş Numarası: ${order.orderId}, Toplam Ücret: ${order.totalPrice}₺, ${order.isOrderReady ? "Hazır." : "Hazır değil."}",
+            style: TextConsts.instance.regularBlack18Bold,
+          ),
+          subtitle: Text(
+            "Sipariş Detayı: ${viewModel.orderListRefactor(order.orderList)}",
+            style: TextConsts.instance.regularBlack14,
+          ),
+          trailing: SizedBox(
+            width: 122,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(
+                  onPressed: () async =>
+                      viewModel.changeOrderState(order, index),
+                  icon: Icon(
+                    Icons.done,
+                    color: ColorConsts.instance.green,
+                    size: 45,
                   ),
                 ),
-              );
-            });
-      }),
+                IconButton(
+                  onPressed: () async => await viewModel.deleteOrder(order),
+                  icon: Icon(
+                    Icons.delete,
+                    color: ColorConsts.instance.red,
+                    size: 45,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
