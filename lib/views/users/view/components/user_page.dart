@@ -1,23 +1,34 @@
 part of '../users_view.dart';
 
-class UserPage extends StatelessWidget {
+class UserPage extends StatefulWidget {
   final UserDataModel user;
   final UsersViewModel viewModel;
   const UserPage({super.key, required this.user, required this.viewModel});
+
+  @override
+  State<UserPage> createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  @override
+  void initState() {
+    widget.viewModel.fetchBlockUserButtonText(widget.user.isUserBanned!);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          user.name!,
+          widget.user.name!,
           style: TextConsts.instance.regularBlack25Bold,
         ),
         actions: <Widget>[
           Padding(
             padding: PaddingConsts.instance.horizontal30,
             child: UserProfileImage(
-              profileImage: user.profileImage,
+              profileImage: widget.user.profileImage,
             ),
           ),
         ],
@@ -41,18 +52,6 @@ class UserPage extends StatelessWidget {
     );
   }
 
-  Widget buildInputsRow() {
-    return Row(
-      children: <Widget>[
-        Expanded(
-            child: Container(
-          margin: PaddingConsts.instance.all10,
-          color: Colors.black,
-        ))
-      ],
-    );
-  }
-
   Widget buildUserPosts() {
     return Container(
       margin: PaddingConsts.instance.all10,
@@ -69,14 +68,14 @@ class UserPage extends StatelessWidget {
                 style: TextConsts.instance.regularWhite25Bold),
           ),
           Expanded(
-              child: user.posts!.isEmpty
+              child: widget.user.posts!.isEmpty
                   ? Center(
                       child: Text(
                         "Kullanıcı henüz paylaşım yapmamış.",
                         style: TextConsts.instance.regularWhite20Bold,
                       ),
                     )
-                  : UserPosts(user: user, viewModel: viewModel)),
+                  : UserPosts(user: widget.user, viewModel: widget.viewModel)),
         ],
       ),
     );
@@ -98,14 +97,14 @@ class UserPage extends StatelessWidget {
                 Text("Skorlar", style: TextConsts.instance.regularWhite25Bold),
           ),
           Expanded(
-              child: user.scores!.isEmpty
+              child: widget.user.scores!.isEmpty
                   ? Center(
                       child: Text(
                         "Kullanıcının kayıtlı bir skoru yok.",
                         style: TextConsts.instance.regularWhite20Bold,
                       ),
                     )
-                  : UserScores(user: user, viewModel: viewModel)),
+                  : UserScores(user: widget.user, viewModel: widget.viewModel)),
         ],
       ),
     );
@@ -127,15 +126,69 @@ class UserPage extends StatelessWidget {
                 style: TextConsts.instance.regularWhite25Bold),
           ),
           Expanded(
-              child: user.favoriteFoods!.isEmpty
+              child: widget.user.favoriteFoods!.isEmpty
                   ? Center(
                       child: Text(
                         "Kullanıcı henüz sipariş vermemiş.",
                         style: TextConsts.instance.regularWhite20Bold,
                       ),
                     )
-                  : UserFavoriteFoods(user: user, viewModel: viewModel)),
+                  : UserFavoriteFoods(
+                      user: widget.user, viewModel: widget.viewModel)),
         ],
+      ),
+    );
+  }
+
+  Widget buildInputsRow() {
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: PaddingConsts.instance.all20,
+          child: Observer(builder: (context) {
+            return CustomStateFullButton(
+              onPressed: () {},
+              text: widget.viewModel.blockUserButtonText!,
+              width: 250,
+              height: 70,
+              style: TextConsts.instance.regularBlack20Bold,
+            );
+          }),
+        ),
+        CustomStateFullButton(
+          onPressed: () {},
+          text: "Profil Fotoğrafını Kaldır",
+          width: 250,
+          height: 70,
+          style: TextConsts.instance.regularBlack18Bold,
+        ),
+        Expanded(
+          child: Padding(
+            padding: PaddingConsts.instance.all20,
+            child: Column(
+              children: <Widget>[
+                buildUserInformationElement(
+                    "Telefon Numarası:", widget.user.phoneNumber!),
+                buildUserInformationElement("Mail Adresi:", widget.user.email!),
+                buildUserInformationElement("Anonimlik:",
+                    widget.user.isAnonym! ? "Anonim" : "Anonim değil")
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget buildUserInformationElement(String title, String value) {
+    return ListTile(
+      leading: Text(
+        title,
+        style: TextConsts.instance.regularBlack20Bold,
+      ),
+      title: Text(
+        value,
+        style: TextConsts.instance.regularBlack20,
       ),
     );
   }

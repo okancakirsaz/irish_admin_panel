@@ -19,11 +19,16 @@ abstract class _UsersViewModelBase with Store, BaseViewModel {
     await getAllUsersFirstInit();
   }
 
+  //TODO: Dont forget remove cache in first init
+  //TODO: Get user profile image as observable
+
   final UserServices services = UserServices();
   @observable
   ObservableList<UserDataModel> allUsers = ObservableList<UserDataModel>.of([]);
   @observable
   bool isLoadSuccessful = false;
+  @observable
+  String? blockUserButtonText;
 
   Future<void> getUsers() async {
     final List<UserDataModel>? response = await services.getAllUsers();
@@ -65,5 +70,17 @@ abstract class _UsersViewModelBase with Store, BaseViewModel {
                   user: user,
                   viewModel: viewModel,
                 )));
+  }
+
+  @action
+  fetchBlockUserButtonText(bool isUserBlocked) {
+    switch (isUserBlocked) {
+      case true:
+        blockUserButtonText = "Banı Kaldır";
+        break;
+      case false:
+        blockUserButtonText = "Kullanıcıyı Banla";
+        break;
+    }
   }
 }
