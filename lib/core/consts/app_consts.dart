@@ -12,6 +12,7 @@ class AppConst {
   final String userFoods = "/user/user-foods";
   final String users = "/community/users";
   final String orders = "/order/orders";
+  final String createOrder = "/order/create-order";
   final String deleteOrder = "/order/delete-order";
   final String changeOrderState = "/order/change-order-state";
 }

@@ -41,6 +41,22 @@ mixin _$UsersViewModel on _UsersViewModelBase, Store {
     });
   }
 
+  late final _$blockUserButtonTextAtom =
+      Atom(name: '_UsersViewModelBase.blockUserButtonText', context: context);
+
+  @override
+  String? get blockUserButtonText {
+    _$blockUserButtonTextAtom.reportRead();
+    return super.blockUserButtonText;
+  }
+
+  @override
+  set blockUserButtonText(String? value) {
+    _$blockUserButtonTextAtom.reportWrite(value, super.blockUserButtonText, () {
+      super.blockUserButtonText = value;
+    });
+  }
+
   late final _$getAllUsersFirstInitAsyncAction =
       AsyncAction('_UsersViewModelBase.getAllUsersFirstInit', context: context);
 
@@ -50,11 +66,26 @@ mixin _$UsersViewModel on _UsersViewModelBase, Store {
         .run(() => super.getAllUsersFirstInit());
   }
 
+  late final _$_UsersViewModelBaseActionController =
+      ActionController(name: '_UsersViewModelBase', context: context);
+
+  @override
+  dynamic fetchBlockUserButtonText(bool isUserBlocked) {
+    final _$actionInfo = _$_UsersViewModelBaseActionController.startAction(
+        name: '_UsersViewModelBase.fetchBlockUserButtonText');
+    try {
+      return super.fetchBlockUserButtonText(isUserBlocked);
+    } finally {
+      _$_UsersViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 allUsers: ${allUsers},
-isLoadSuccessful: ${isLoadSuccessful}
+isLoadSuccessful: ${isLoadSuccessful},
+blockUserButtonText: ${blockUserButtonText}
     ''';
   }
 }

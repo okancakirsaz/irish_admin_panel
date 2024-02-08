@@ -25,6 +25,54 @@ mixin _$OrdersViewModel on _OrdersViewModelBase, Store {
     });
   }
 
+  late final _$menuItemCountsAtom =
+      Atom(name: '_OrdersViewModelBase.menuItemCounts', context: context);
+
+  @override
+  ObservableList<int> get menuItemCounts {
+    _$menuItemCountsAtom.reportRead();
+    return super.menuItemCounts;
+  }
+
+  @override
+  set menuItemCounts(ObservableList<int> value) {
+    _$menuItemCountsAtom.reportWrite(value, super.menuItemCounts, () {
+      super.menuItemCounts = value;
+    });
+  }
+
+  late final _$orderedFoodsAtom =
+      Atom(name: '_OrdersViewModelBase.orderedFoods', context: context);
+
+  @override
+  ObservableList<Map<String, dynamic>> get orderedFoods {
+    _$orderedFoodsAtom.reportRead();
+    return super.orderedFoods;
+  }
+
+  @override
+  set orderedFoods(ObservableList<Map<String, dynamic>> value) {
+    _$orderedFoodsAtom.reportWrite(value, super.orderedFoods, () {
+      super.orderedFoods = value;
+    });
+  }
+
+  late final _$totalPriceAtom =
+      Atom(name: '_OrdersViewModelBase.totalPrice', context: context);
+
+  @override
+  int get totalPrice {
+    _$totalPriceAtom.reportRead();
+    return super.totalPrice;
+  }
+
+  @override
+  set totalPrice(int value) {
+    _$totalPriceAtom.reportWrite(value, super.totalPrice, () {
+      super.totalPrice = value;
+    });
+  }
+
   late final _$getOrdersAsyncAction =
       AsyncAction('_OrdersViewModelBase.getOrders', context: context);
 
@@ -65,9 +113,56 @@ mixin _$OrdersViewModel on _OrdersViewModelBase, Store {
   }
 
   @override
+  dynamic incrementCount(int index) {
+    final _$actionInfo = _$_OrdersViewModelBaseActionController.startAction(
+        name: '_OrdersViewModelBase.incrementCount');
+    try {
+      return super.incrementCount(index);
+    } finally {
+      _$_OrdersViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic decrementCount(int index) {
+    final _$actionInfo = _$_OrdersViewModelBaseActionController.startAction(
+        name: '_OrdersViewModelBase.decrementCount');
+    try {
+      return super.decrementCount(index);
+    } finally {
+      _$_OrdersViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic addToOrderList(MenuItemModel item, int index) {
+    final _$actionInfo = _$_OrdersViewModelBaseActionController.startAction(
+        name: '_OrdersViewModelBase.addToOrderList');
+    try {
+      return super.addToOrderList(item, index);
+    } finally {
+      _$_OrdersViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic fetchTotalPrice(int newCost) {
+    final _$actionInfo = _$_OrdersViewModelBaseActionController.startAction(
+        name: '_OrdersViewModelBase.fetchTotalPrice');
+    try {
+      return super.fetchTotalPrice(newCost);
+    } finally {
+      _$_OrdersViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-orders: ${orders}
+orders: ${orders},
+menuItemCounts: ${menuItemCounts},
+orderedFoods: ${orderedFoods},
+totalPrice: ${totalPrice}
     ''';
   }
 }

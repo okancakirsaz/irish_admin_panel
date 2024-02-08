@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:irish_admin_panel/core/init/network_manager.dart';
+import 'package:irish_admin_panel/views/orders/models/order_create_model.dart';
 import 'package:irish_admin_panel/views/orders/models/order_model.dart';
 import '../../../core/consts/app_consts.dart';
 
@@ -34,6 +35,17 @@ final class OrdersServices extends NetworkManager {
   Future<OrderModel?> submitOrder(OrderModel data) async {
     try {
       final response = await network.post(AppConst.instance.changeOrderState,
+          data: data.toJson());
+      return OrderModel.fromJson(response.data);
+    } catch (_) {
+      debugPrint(_.toString());
+      return null;
+    }
+  }
+
+  Future<OrderModel?> createOrder(OrderCreateModel data) async {
+    try {
+      final response = await network.post(AppConst.instance.createOrder,
           data: data.toJson());
       return OrderModel.fromJson(response.data);
     } catch (_) {
