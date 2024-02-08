@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:irish_admin_panel/core/base/view/base_view.dart';
+import 'package:irish_admin_panel/core/consts/padding_consts.dart';
 import 'package:irish_admin_panel/core/consts/radius_consts.dart';
 import 'package:irish_admin_panel/core/consts/text_consts.dart';
+import 'package:irish_admin_panel/views/users/models/user_data_model.dart';
 import 'package:irish_admin_panel/views/users/viewmodel/users_viewmodel.dart';
 
 import '../../../core/consts/color_consts/color_consts.dart';
+
+part 'components/user_page.dart';
+part 'components/user_profile_image.dart';
+part 'components/user_posts.dart';
+part 'components/user_scores.dart';
+part 'components/user_favorite_foods.dart';
 
 class UsersView extends StatelessWidget {
   const UsersView({super.key});
@@ -40,9 +48,10 @@ class UsersView extends StatelessWidget {
           itemBuilder: (context, index) {
             return Card(
               child: ListTile(
-                onTap: () {},
-                leading: buildUserProfileImage(
-                    viewModel.allUsers[index].profileImage),
+                onTap: () => viewModel.navigateToUserPage(
+                    viewModel.allUsers[index], viewModel),
+                leading: UserProfileImage(
+                    profileImage: viewModel.allUsers[index].profileImage),
                 title: Text(
                   viewModel.allUsers[index].name!,
                   style: TextConsts.instance.regularBlack18Bold,
@@ -59,26 +68,6 @@ class UsersView extends StatelessWidget {
               ),
             );
           }),
-    );
-  }
-
-  Widget buildUserProfileImage(String? profileImage) {
-    return Container(
-      width: 60,
-      height: 60,
-      decoration: BoxDecoration(
-          borderRadius: RadiusConsts.instance.circularAll100,
-          image: profileImage != null
-              ? DecorationImage(
-                  image: NetworkImage(profileImage), fit: BoxFit.cover)
-              : null),
-      child: profileImage == null
-          ? Icon(
-              Icons.portrait,
-              size: 45,
-              color: ColorConsts.instance.black,
-            )
-          : null,
     );
   }
 }

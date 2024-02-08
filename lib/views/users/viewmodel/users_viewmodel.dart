@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:irish_admin_panel/views/users/models/user_data_model.dart';
 import 'package:irish_admin_panel/views/users/services/users_services.dart';
+import 'package:irish_admin_panel/views/users/view/users_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 
@@ -54,5 +55,15 @@ abstract class _UsersViewModelBase with Store, BaseViewModel {
       convertedList.add(UserDataModel.fromJson(element));
     }
     return convertedList;
+  }
+
+  navigateToUserPage(UserDataModel user, UsersViewModel viewModel) {
+    Navigator.push(
+        viewModelContext,
+        MaterialPageRoute(
+            builder: (context) => UserPage(
+                  user: user,
+                  viewModel: viewModel,
+                )));
   }
 }

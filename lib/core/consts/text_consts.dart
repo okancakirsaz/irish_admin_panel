@@ -125,6 +125,14 @@ class TextConsts {
     );
   }
 
+  TextStyle get regularRed14Bold {
+    return GoogleFonts.montserrat(
+      fontSize: 14,
+      color: ColorConsts.instance.red,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
   TextStyle get regularBlack18Bold {
     return GoogleFonts.montserrat(
       fontSize: 18,
