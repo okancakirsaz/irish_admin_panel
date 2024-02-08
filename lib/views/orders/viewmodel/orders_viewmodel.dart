@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:irish_admin_panel/core/init/cache/local_keys_enums.dart';
 import 'package:irish_admin_panel/core/init/web_socket_manager.dart';
+import 'package:irish_admin_panel/views/menu/models/menu_item_model.dart';
+import 'package:irish_admin_panel/views/menu/viewmodel/menu_viewmodel.dart';
 import 'package:irish_admin_panel/views/orders/models/order_model.dart';
 import 'package:irish_admin_panel/views/orders/view/orders_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
@@ -15,7 +18,8 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
   @override
   void setContext(BuildContext context) => viewModelContext = context;
   @override
-  init() {
+  init() async {
+    await getMenuItems();
     handleNewOrder();
   }
 
@@ -23,6 +27,7 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
 
   @observable
   ObservableList<OrderModel> orders = ObservableList<OrderModel>.of([]);
+  List<MenuItemModel> menu = [];
 
   //Returning random data because this function using in a FutureBuilder
   @action
@@ -66,11 +71,13 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
     }
   }
 
-  navigateToCreateOrderPage() {
+  navigateToCreateOrderPage(OrdersViewModel viewModel) {
     Navigator.push(
       viewModelContext,
       MaterialPageRoute(
-        builder: (context) => const CreateOrderView(),
+        builder: (context) => CreateOrderView(
+          viewModel: viewModel,
+        ),
       ),
     );
   }
@@ -82,6 +89,20 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
       orders[index] = response;
     } else {
       showErrorDialog();
+    }
+  }
+
+  getMenuItems() async {
+    List? rawList =
+        localeManager.getNullableJsonData(LocaleKeysEnums.menu.name);
+
+    if (rawList == null) {
+      //Dependency Injection
+      await MenuViewModel().getMenu();
+      rawList = localeManager.getJsonData(LocaleKeysEnums.menu.name);
+    }
+    for (Map<String, dynamic> element in rawList!) {
+      menu.add(MenuItemModel.fromJson(element));
     }
   }
 }
