@@ -32,7 +32,8 @@ class UserPosts extends StatelessWidget {
             ),
           ),
           IconButton(
-              onPressed: () {},
+              onPressed: () async =>
+                  await viewModel.deletePost(user, user.posts![index].id!),
               icon: Icon(
                 Icons.delete,
                 color: ColorConsts.instance.red,

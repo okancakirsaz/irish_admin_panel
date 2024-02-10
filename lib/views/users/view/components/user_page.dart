@@ -147,7 +147,8 @@ class _UserPageState extends State<UserPage> {
           padding: PaddingConsts.instance.all20,
           child: Observer(builder: (context) {
             return CustomStateFullButton(
-              onPressed: () {},
+              onPressed: () async =>
+                  await widget.viewModel.handleBlockUser(widget.user),
               text: widget.viewModel.blockUserButtonText!,
               width: 250,
               height: 70,
@@ -156,7 +157,8 @@ class _UserPageState extends State<UserPage> {
           }),
         ),
         CustomStateFullButton(
-          onPressed: () {},
+          onPressed: () async =>
+              widget.viewModel.deleteProfileImage(widget.user),
           text: "Profil Fotoğrafını Kaldır",
           width: 250,
           height: 70,

@@ -7,10 +7,11 @@ class AppConst {
   final String deleteMenuElement = "/menu/delete-element";
   final String updateMenuElement = "/menu/update-element";
   final String getActiveEvents = "/games/get-active-events";
-  final String userPosts = "/user/user-posts";
-  final String userScores = "/user/user-scores";
-  final String userFoods = "/user/user-foods";
+  final String deletePost = "/user/delete-post";
+  final String deleteProfileImage = "/user/delete-profile-image";
   final String users = "/community/users";
+  final String blockUser = "/community/block-user";
+  final String unblockUser = "/community/unblock-user";
   final String orders = "/order/orders";
   final String createOrder = "/order/create-order";
   final String deleteOrder = "/order/delete-order";

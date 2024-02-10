@@ -57,6 +57,14 @@ mixin _$UsersViewModel on _UsersViewModelBase, Store {
     });
   }
 
+  late final _$getUsersAsyncAction =
+      AsyncAction('_UsersViewModelBase.getUsers', context: context);
+
+  @override
+  Future<void> getUsers() {
+    return _$getUsersAsyncAction.run(() => super.getUsers());
+  }
+
   late final _$getAllUsersFirstInitAsyncAction =
       AsyncAction('_UsersViewModelBase.getAllUsersFirstInit', context: context);
 
@@ -64,6 +72,31 @@ mixin _$UsersViewModel on _UsersViewModelBase, Store {
   Future<void> getAllUsersFirstInit() {
     return _$getAllUsersFirstInitAsyncAction
         .run(() => super.getAllUsersFirstInit());
+  }
+
+  late final _$handleBlockUserAsyncAction =
+      AsyncAction('_UsersViewModelBase.handleBlockUser', context: context);
+
+  @override
+  Future<void> handleBlockUser(UserDataModel user) {
+    return _$handleBlockUserAsyncAction.run(() => super.handleBlockUser(user));
+  }
+
+  late final _$deleteProfileImageAsyncAction =
+      AsyncAction('_UsersViewModelBase.deleteProfileImage', context: context);
+
+  @override
+  Future<void> deleteProfileImage(UserDataModel user) {
+    return _$deleteProfileImageAsyncAction
+        .run(() => super.deleteProfileImage(user));
+  }
+
+  late final _$deletePostAsyncAction =
+      AsyncAction('_UsersViewModelBase.deletePost', context: context);
+
+  @override
+  Future<void> deletePost(UserDataModel user, String postId) {
+    return _$deletePostAsyncAction.run(() => super.deletePost(user, postId));
   }
 
   late final _$_UsersViewModelBaseActionController =

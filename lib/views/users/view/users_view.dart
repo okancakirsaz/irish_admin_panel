@@ -24,14 +24,16 @@ class UsersView extends StatelessWidget {
     return BaseView<UsersViewModel>(
         viewModel: UsersViewModel(),
         onPageBuilder: (context, model) {
-          if (model.isLoadSuccessful) {
-            return buildUsers(model);
-          } else {
-            return Center(
-              child:
-                  CircularProgressIndicator(color: ColorConsts.instance.orange),
-            );
-          }
+          return Observer(builder: (context) {
+            if (model.isLoadSuccessful) {
+              return buildUsers(model);
+            } else {
+              return Center(
+                child: CircularProgressIndicator(
+                    color: ColorConsts.instance.orange),
+              );
+            }
+          });
         },
         onModelReady: (model) {
           model.init();
@@ -48,27 +50,28 @@ class UsersView extends StatelessWidget {
       child: ListView.builder(
           itemCount: viewModel.allUsers.length,
           itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                onTap: () => viewModel.navigateToUserPage(
-                    viewModel.allUsers[index], viewModel),
-                leading: UserProfileImage(
-                    profileImage: viewModel.allUsers[index].profileImage),
-                title: Text(
-                  viewModel.allUsers[index].name!,
-                  style: TextConsts.instance.regularBlack18Bold,
+            final UserDataModel user = viewModel.allUsers[index];
+            return Observer(builder: (context) {
+              return Card(
+                child: ListTile(
+                  onTap: () => viewModel.navigateToUserPage(user, viewModel),
+                  leading: UserProfileImage(profileImage: user.profileImage),
+                  title: Text(
+                    user.name!,
+                    style: TextConsts.instance.regularBlack18Bold,
+                  ),
+                  subtitle: Text(
+                    "Cinsiyet: ${user.gender!}, Tel: ${user.phoneNumber!}, E-Posta: ${viewModel.allUsers[index].email!}",
+                    style: TextConsts.instance.regularBlack14,
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_circle_right_outlined,
+                    size: 50,
+                    color: ColorConsts.instance.black,
+                  ),
                 ),
-                subtitle: Text(
-                  "Cinsiyet: ${viewModel.allUsers[index].gender!}, Tel: ${viewModel.allUsers[index].phoneNumber!}, E-Posta: ${viewModel.allUsers[index].email!}",
-                  style: TextConsts.instance.regularBlack14,
-                ),
-                trailing: Icon(
-                  Icons.arrow_circle_right_outlined,
-                  size: 50,
-                  color: ColorConsts.instance.black,
-                ),
-              ),
-            );
+              );
+            });
           }),
     );
   }
