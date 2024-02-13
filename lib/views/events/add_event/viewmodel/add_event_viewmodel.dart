@@ -108,8 +108,6 @@ abstract class _AddEventViewModelBase with Store, BaseViewModel {
     int day = selectedDate!.day;
     int month = selectedDate!.month;
     int year = selectedDate!.year;
-    int hour = selectedTime!.hour;
-    int minute = selectedTime!.minute;
-    return "$day/$month/$year $hour.$minute";
+    return "${day.toString().padLeft(2, '0')}/${month.toString().padLeft(2, '0')}/$year ${selectedTime!.toTimeOfDay().format(viewModelContext)}";
   }
 }
