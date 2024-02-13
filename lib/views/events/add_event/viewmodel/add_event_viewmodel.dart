@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:irish_admin_panel/core/consts/text_consts.dart';
 import 'package:irish_admin_panel/views/events/add_event/service/add_event_service.dart';
 import 'package:irish_admin_panel/views/events/models/event_model.dart';
+import 'package:irish_admin_panel/views/main_view/view/main_view.dart';
 import 'package:uuid/uuid.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
@@ -89,11 +90,18 @@ abstract class _AddEventViewModelBase with Store, BaseViewModel {
       if (response == null) {
         showErrorDialog();
       } else {
-        navigatorPop();
+        _returnToMainView();
       }
     } catch (e) {
       debugPrint("$e");
     }
+  }
+
+  _returnToMainView() {
+    Navigator.pushAndRemoveUntil(
+        viewModelContext,
+        MaterialPageRoute(builder: (context) => const MainView()),
+        (route) => false);
   }
 
   String _fetchDateForRequest() {

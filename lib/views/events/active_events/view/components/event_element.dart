@@ -1,9 +1,16 @@
 part of '../active_events_view.dart';
 
 class EventsElement extends StatelessWidget {
+  final ActiveEventsViewModel viewModel;
   final String name;
   final String time;
-  const EventsElement({super.key, required this.name, required this.time});
+  final String id;
+  const EventsElement(
+      {super.key,
+      required this.name,
+      required this.time,
+      required this.id,
+      required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +30,14 @@ class EventsElement extends StatelessWidget {
         subtitle: Text(
           time,
           style: TextConsts.instance.regularWhite20,
+        ),
+        trailing: IconButton(
+          icon: Icon(
+            Icons.delete,
+            color: ColorConsts.instance.red,
+            size: 40,
+          ),
+          onPressed: () async => await viewModel.cancelEvent(id),
         ),
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:irish_admin_panel/core/base/view/base_view.dart';
 import 'package:irish_admin_panel/views/events/active_events/viewmodel/active_events_viewmodel.dart';
+import 'package:irish_admin_panel/views/events/models/event_model.dart';
 
 import '../../../../core/consts/color_consts/color_consts.dart';
 import '../../../../core/consts/padding_consts.dart';
@@ -30,10 +32,7 @@ class ActiveEventsView extends StatelessWidget {
                       width: double.infinity,
                       height: 70),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: 0, itemBuilder: (context, index) {}),
-                ),
+                buildActiveEvents(model)
               ],
             ),
           );
@@ -43,5 +42,45 @@ class ActiveEventsView extends StatelessWidget {
           model.setContext(context);
         },
         onDispose: (model) {});
+  }
+
+  Widget buildActiveEvents(ActiveEventsViewModel model) {
+    return Observer(builder: (context) {
+      if (model.isPageLoaded && model.events.isEmpty) {
+        return Center(
+            child: Text(
+          "Aktif etkinlik bulunmamakta",
+          style: TextConsts.instance.regularBlack25Bold,
+        ));
+      } else if (model.isPageLoaded && model.events.isNotEmpty) {
+        return buildEventsList(model);
+      } else {
+        return Center(
+          child: CircularProgressIndicator(
+            color: ColorConsts.instance.orange,
+          ),
+        );
+      }
+    });
+  }
+
+  Widget buildEventsList(ActiveEventsViewModel model) {
+    return Expanded(
+      child: RefreshIndicator(
+        color: ColorConsts.instance.orange,
+        onRefresh: () async => model.getActiveEvents(),
+        child: ListView.builder(
+            itemCount: model.events.length,
+            itemBuilder: (context, index) {
+              EventModel event = model.events[index];
+              return EventsElement(
+                viewModel: model,
+                name: event.eventName!,
+                time: event.eventTime!,
+                id: event.eventId!,
+              );
+            }),
+      ),
+    );
   }
 }

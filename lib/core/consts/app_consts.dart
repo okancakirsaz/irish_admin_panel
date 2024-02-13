@@ -6,7 +6,6 @@ class AppConst {
   final String createMenuElement = "/menu/create-element";
   final String deleteMenuElement = "/menu/delete-element";
   final String updateMenuElement = "/menu/update-element";
-  final String getActiveEvents = "/games/get-active-events";
   final String deletePost = "/user/delete-post";
   final String deleteProfileImage = "/user/delete-profile-image";
   final String users = "/community/users";
@@ -17,4 +16,6 @@ class AppConst {
   final String deleteOrder = "/order/delete-order";
   final String changeOrderState = "/order/change-order-state";
   final String createEvent = "/games/create-event";
+  final String deleteEvent = "/games/delete-event";
+  final String getActiveEvents = "/games/get-active-events";
 }
