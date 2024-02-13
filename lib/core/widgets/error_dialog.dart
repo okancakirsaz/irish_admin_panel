@@ -12,12 +12,9 @@ class ErrorDialog extends StatelessWidget {
     return AlertDialog(
       backgroundColor: ColorConsts.instance.darkGrey,
       content: Center(
-        child: SizedBox(
-          height: 150,
-          child: Text(
-            reason ?? "Bir sorun oluştu, tekrar deneyiniz.",
-            style: TextConsts.instance.regularWhite16Bold,
-          ),
+        child: Text(
+          reason ?? "Bir sorun oluştu, tekrar deneyiniz.",
+          style: TextConsts.instance.regularWhite16Bold,
         ),
       ),
     );

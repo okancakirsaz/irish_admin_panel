@@ -36,7 +36,7 @@ dependencies:
 
   #Generating
   build_runner: ^2.4.6
-  uuid: ^4.2.1
+  uuid: ^4.3.3
 
   #UI
   google_fonts: ^6.1.0
@@ -55,6 +55,8 @@ dependencies:
   #Network
   dio:
   socket_io_client: ^2.0.3+1
+  calendar_date_picker2: ^0.5.3
+  day_night_time_picker: ^1.3.0+1
   #web_socket_channel: ^2.4.0
 
 dev_dependencies:

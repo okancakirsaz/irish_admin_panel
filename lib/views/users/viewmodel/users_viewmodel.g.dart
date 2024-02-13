@@ -82,23 +82,6 @@ mixin _$UsersViewModel on _UsersViewModelBase, Store {
     return _$handleBlockUserAsyncAction.run(() => super.handleBlockUser(user));
   }
 
-  late final _$deleteProfileImageAsyncAction =
-      AsyncAction('_UsersViewModelBase.deleteProfileImage', context: context);
-
-  @override
-  Future<void> deleteProfileImage(UserDataModel user) {
-    return _$deleteProfileImageAsyncAction
-        .run(() => super.deleteProfileImage(user));
-  }
-
-  late final _$deletePostAsyncAction =
-      AsyncAction('_UsersViewModelBase.deletePost', context: context);
-
-  @override
-  Future<void> deletePost(UserDataModel user, String postId) {
-    return _$deletePostAsyncAction.run(() => super.deletePost(user, postId));
-  }
-
   late final _$_UsersViewModelBaseActionController =
       ActionController(name: '_UsersViewModelBase', context: context);
 

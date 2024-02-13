@@ -39,6 +39,9 @@ class CustomButtonNavBar extends StatelessWidget {
                   BottomNavigationBarItem(
                       label: "Kullanıcılar",
                       icon: buildIcon(AssetConsts.instance.profile)),
+                  BottomNavigationBarItem(
+                      label: "Etkinlikler",
+                      icon: buildIcon(AssetConsts.instance.events)),
                 ]);
           });
         },
