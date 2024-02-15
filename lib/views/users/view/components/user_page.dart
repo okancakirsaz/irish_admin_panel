@@ -53,32 +53,48 @@ class _UserPageState extends State<UserPage> {
   }
 
   Widget buildUserPosts() {
-    return Container(
-      margin: PaddingConsts.instance.all10,
-      padding: PaddingConsts.instance.all10,
-      decoration: BoxDecoration(
-          color: ColorConsts.instance.orange,
-          borderRadius: RadiusConsts.instance.circularAll10,
-          boxShadow: ColorConsts.instance.shadow),
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: PaddingConsts.instance.bottom15,
-            child: Text("Gönderiler",
-                style: TextConsts.instance.regularWhite25Bold),
-          ),
-          Expanded(
-              child: widget.user.posts!.isEmpty
-                  ? Center(
-                      child: Text(
-                        "Kullanıcı henüz paylaşım yapmamış.",
-                        style: TextConsts.instance.regularWhite20Bold,
-                      ),
-                    )
-                  : UserPosts(user: widget.user, viewModel: widget.viewModel)),
-        ],
-      ),
-    );
+    return FutureBuilder<List<PostModel>?>(
+        future: widget.viewModel.getUserPosts(widget.user),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Container(
+              margin: PaddingConsts.instance.all10,
+              padding: PaddingConsts.instance.all10,
+              decoration: BoxDecoration(
+                  color: ColorConsts.instance.orange,
+                  borderRadius: RadiusConsts.instance.circularAll10,
+                  boxShadow: ColorConsts.instance.shadow),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: PaddingConsts.instance.bottom15,
+                    child: Text("Gönderiler",
+                        style: TextConsts.instance.regularWhite25Bold),
+                  ),
+                  Expanded(
+                      child: snapshot.data!.isEmpty
+                          ? Center(
+                              child: Text(
+                                "Kullanıcı henüz paylaşım yapmamış.",
+                                style: TextConsts.instance.regularWhite20Bold,
+                              ),
+                            )
+                          : UserPosts(
+                              user: widget.user,
+                              viewModel: widget.viewModel,
+                              posts: snapshot.data!,
+                            )),
+                ],
+              ),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(
+                color: ColorConsts.instance.orange,
+              ),
+            );
+          }
+        });
   }
 
   Widget buildUserScores() {

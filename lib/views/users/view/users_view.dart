@@ -9,6 +9,7 @@ import 'package:irish_admin_panel/views/users/models/user_data_model.dart';
 import 'package:irish_admin_panel/views/users/viewmodel/users_viewmodel.dart';
 
 import '../../../core/consts/color_consts/color_consts.dart';
+import '../models/post_model.dart';
 
 part 'components/user_page.dart';
 part 'components/user_profile_image.dart';

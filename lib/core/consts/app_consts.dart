@@ -9,6 +9,7 @@ class AppConst {
   final String deletePost = "/user/delete-post";
   final String deleteProfileImage = "/user/delete-profile-image";
   final String users = "/community/users";
+  final String userPosts = "/user/user-posts";
   final String blockUser = "/community/block-user";
   final String unblockUser = "/community/unblock-user";
   final String orders = "/order/orders";

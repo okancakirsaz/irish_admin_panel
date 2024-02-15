@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:irish_admin_panel/core/init/network_manager.dart';
 import 'package:irish_admin_panel/views/users/models/user_data_model.dart';
@@ -5,6 +6,7 @@ import 'package:irish_admin_panel/views/users/models/user_data_model.dart';
 import '../../../core/consts/app_consts.dart';
 import '../models/boolean_single_response_model.dart';
 import '../models/post_id_send_request_model.dart';
+import '../models/post_model.dart';
 import '../models/user_id_send_request_model.dart';
 
 final class UserServices extends NetworkManager {
@@ -39,6 +41,21 @@ final class UserServices extends NetworkManager {
       final response =
           await network.post(AppConst.instance.deletePost, data: data.toJson());
       return BooleanSingleResponseModel.fromJson(response.data);
+    } catch (_) {
+      debugPrint(_.toString());
+      return null;
+    }
+  }
+
+  Future<List<PostModel>?> getUserPosts(String userToken) async {
+    try {
+      final response = await network.get(AppConst.instance.userPosts,
+          options: Options(headers: {"token": userToken}));
+      List<PostModel> responseAsData = [];
+      (response.data as List<dynamic>).forEach((element) {
+        responseAsData.add(PostModel.fromJson(element));
+      });
+      return responseAsData;
     } catch (_) {
       debugPrint(_.toString());
       return null;

@@ -1,14 +1,19 @@
 part of '../users_view.dart';
 
 class UserPosts extends StatelessWidget {
+  final List<PostModel> posts;
   final UserDataModel user;
   final UsersViewModel viewModel;
-  const UserPosts({super.key, required this.user, required this.viewModel});
+  const UserPosts(
+      {super.key,
+      required this.viewModel,
+      required this.posts,
+      required this.user});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: user.posts!.length,
+        itemCount: posts.length,
         itemBuilder: (context, index) {
           return buildUserPost(index);
         });
@@ -21,19 +26,19 @@ class UserPosts extends StatelessWidget {
           Padding(
             padding: PaddingConsts.instance.top10,
             child: Image.network(
-              user.posts![index].apiImage!,
+              posts[index].apiImage!,
             ),
           ),
           Padding(
             padding: PaddingConsts.instance.top10,
             child: Text(
-              user.posts![index].description!,
+              posts[index].description!,
               style: TextConsts.instance.regularBlack25,
             ),
           ),
           IconButton(
               onPressed: () async =>
-                  await viewModel.deletePost(user, user.posts![index].id!),
+                  await viewModel.deletePost(user, posts[index].id!),
               icon: Icon(
                 Icons.delete,
                 color: ColorConsts.instance.red,

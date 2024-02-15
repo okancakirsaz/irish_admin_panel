@@ -24,9 +24,6 @@ abstract class _UsersViewModelBase with Store, BaseViewModel {
     await getAllUsersFirstInit();
   }
 
-  //TODO: Dont forget remove cache in first init
-  //TODO: Get user profile image as observable
-
   final UserServices services = UserServices();
   @observable
   ObservableList<UserDataModel> allUsers = ObservableList<UserDataModel>.of([]);
@@ -43,6 +40,17 @@ abstract class _UsersViewModelBase with Store, BaseViewModel {
     if (response == null) {
       showErrorDialog();
       return;
+    }
+  }
+
+  //Calling at user_page.dart file in FutureBuilder
+  Future<List<PostModel>?> getUserPosts(UserDataModel user) async {
+    final List<PostModel>? response = await services.getUserPosts(user.token!);
+    if (response != null) {
+      return response;
+    } else {
+      showErrorDialog("Gönderiler getirilirken hata oluştu.");
+      return null;
     }
   }
 
@@ -70,12 +78,14 @@ abstract class _UsersViewModelBase with Store, BaseViewModel {
 
   navigateToUserPage(UserDataModel user, UsersViewModel viewModel) {
     Navigator.push(
-        viewModelContext,
-        MaterialPageRoute(
-            builder: (context) => UserPage(
-                  user: user,
-                  viewModel: viewModel,
-                )));
+      viewModelContext,
+      MaterialPageRoute(
+        builder: (context) => UserPage(
+          user: user,
+          viewModel: viewModel,
+        ),
+      ),
+    );
   }
 
   @action
@@ -92,6 +102,8 @@ abstract class _UsersViewModelBase with Store, BaseViewModel {
 
   @action
   Future<void> handleBlockUser(UserDataModel user) async {
+    //We must fetch posts again for successful delete.
+    user.posts = await getUserPosts(user);
     final UserDataModel? response = await services.blockOrUnblockUser(
         user, _fetchBlockUserOrUnblockUserPath(user.isUserBanned!));
     if (response != null) {
