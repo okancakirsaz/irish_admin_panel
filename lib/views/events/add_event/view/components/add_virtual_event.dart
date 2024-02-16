@@ -15,9 +15,15 @@ class AddVirtualEvent extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          Padding(
-            padding: PaddingConsts.instance.all20,
-            child: buildEventPicker(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: PaddingConsts.instance.all20,
+                child: buildEventPicker(),
+              ),
+              buildAwardPicker(),
+            ],
           ),
           Padding(
             padding: PaddingConsts.instance.all20,
@@ -38,6 +44,17 @@ class AddVirtualEvent extends StatelessWidget {
           dropdownMenuEntries: const <DropdownMenuEntry>[
             DropdownMenuEntry(value: "quiz", label: "Bilgi Yarışması")
           ]),
+    );
+  }
+
+  Widget buildAwardPicker() {
+    return Container(
+      color: ColorConsts.instance.lightGray,
+      child: DropdownMenu(
+        hintText: "Ödül Seçiniz",
+        controller: viewModel.awardName,
+        dropdownMenuEntries: viewModel.menuItemsAsDropdownEntry,
+      ),
     );
   }
 }

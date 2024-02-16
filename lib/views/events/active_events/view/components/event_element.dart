@@ -2,15 +2,9 @@ part of '../active_events_view.dart';
 
 class EventsElement extends StatelessWidget {
   final ActiveEventsViewModel viewModel;
-  final String name;
-  final String time;
-  final String id;
+  final EventModel event;
   const EventsElement(
-      {super.key,
-      required this.name,
-      required this.time,
-      required this.id,
-      required this.viewModel});
+      {super.key, required this.viewModel, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +18,35 @@ class EventsElement extends StatelessWidget {
           boxShadow: ColorConsts.instance.shadow),
       child: ListTile(
         title: Text(
-          name,
+          event.eventName!,
           style: TextConsts.instance.regularWhite20Bold,
         ),
         subtitle: Text(
-          time,
+          event.eventTime!,
           style: TextConsts.instance.regularWhite20,
         ),
-        trailing: IconButton(
-          icon: Icon(
-            Icons.delete,
-            color: ColorConsts.instance.red,
-            size: 40,
+        trailing: SizedBox(
+          width: 230,
+          child: Row(
+            children: <Widget>[
+              CustomStateFullButton(
+                onPressed: () async => await viewModel.startEvent(event),
+                style: TextConsts.instance.regularBlack18Bold,
+                text: "Etkinliği Başlat",
+                width: 170,
+                height: 40,
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.delete,
+                  color: ColorConsts.instance.red,
+                  size: 40,
+                ),
+                onPressed: () async =>
+                    await viewModel.cancelEvent(event.eventId!),
+              ),
+            ],
           ),
-          onPressed: () async => await viewModel.cancelEvent(id),
         ),
       ),
     );

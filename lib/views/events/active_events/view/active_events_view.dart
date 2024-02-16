@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:irish_admin_panel/core/base/view/base_view.dart';
+import 'package:irish_admin_panel/core/widgets/custom_statefull_button.dart';
 import 'package:irish_admin_panel/views/events/active_events/viewmodel/active_events_viewmodel.dart';
 import 'package:irish_admin_panel/views/events/models/event_model.dart';
 
@@ -73,12 +74,7 @@ class ActiveEventsView extends StatelessWidget {
             itemCount: model.events.length,
             itemBuilder: (context, index) {
               EventModel event = model.events[index];
-              return EventsElement(
-                viewModel: model,
-                name: event.eventName!,
-                time: event.eventTime!,
-                id: event.eventId!,
-              );
+              return EventsElement(viewModel: model, event: event);
             }),
       ),
     );

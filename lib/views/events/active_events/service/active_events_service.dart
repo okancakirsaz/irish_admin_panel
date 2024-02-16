@@ -29,4 +29,15 @@ final class ActiveEventsService extends NetworkManager {
       return null;
     }
   }
+
+  Future<EventModel?> startEvent(EventModel data) async {
+    try {
+      final response =
+          await network.post(AppConst.instance.startEvent, data: data.toJson());
+      return EventModel.fromJson(response.data);
+    } catch (_) {
+      debugPrint(_.toString());
+      return null;
+    }
+  }
 }

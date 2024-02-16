@@ -18,5 +18,6 @@ class AppConst {
   final String changeOrderState = "/order/change-order-state";
   final String createEvent = "/games/create-event";
   final String deleteEvent = "/games/delete-event";
+  final String startEvent = "/games/start-event";
   final String getActiveEvents = "/games/get-active-events";
 }

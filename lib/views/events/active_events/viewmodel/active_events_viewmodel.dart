@@ -53,4 +53,13 @@ abstract class _ActiveEventsViewModelBase with Store, BaseViewModel {
       showErrorDialog();
     }
   }
+
+  Future<void> startEvent(EventModel event) async {
+    final EventModel? response = await service.startEvent(event);
+    if (response != null) {
+      showErrorDialog("Etkinlik başlatıldı");
+    } else {
+      showErrorDialog();
+    }
+  }
 }
