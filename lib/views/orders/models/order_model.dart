@@ -4,6 +4,7 @@ class OrderModel {
   String timestamp;
   bool isOrderReady;
   String userId;
+  String? winnerName;
   int orderId;
 
   OrderModel({
@@ -11,6 +12,7 @@ class OrderModel {
     required this.userId,
     required this.totalPrice,
     required this.timestamp,
+    this.winnerName,
     required this.isOrderReady,
     required this.orderId,
   });
@@ -21,6 +23,7 @@ class OrderModel {
       'totalPrice': totalPrice,
       'timestamp': timestamp,
       'userId': userId,
+      'winnerName': winnerName,
       'isOrderReady': isOrderReady,
       'orderId': orderId,
     };
@@ -28,14 +31,16 @@ class OrderModel {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
-        orderList: (json['orderList'] as List<dynamic>)
-            .map((e) => e as dynamic)
-            .toList(),
-        totalPrice: json['totalPrice'] as int,
-        timestamp: json['timestamp'] as String,
-        isOrderReady: json['isOrderReady'] as bool,
-        orderId: json['orderId'] as int,
-        userId: json['userId'] as String);
+      orderList: (json['orderList'] as List<dynamic>)
+          .map((e) => e as dynamic)
+          .toList(),
+      totalPrice: json['totalPrice'] as int,
+      timestamp: json['timestamp'] as String,
+      isOrderReady: json['isOrderReady'] as bool,
+      orderId: json['orderId'] as int,
+      winnerName: json['winnerName'] as String?,
+      userId: json['userId'] as String,
+    );
   }
 
   @override
