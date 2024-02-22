@@ -91,7 +91,7 @@ class OrdersView extends StatelessWidget {
       child: Card(
         child: ListTile(
           title: Text(
-            "Sipariş Numarası: ${order.orderId}, Toplam Ücret: ${order.totalPrice}₺, ${order.isOrderReady ? "Hazır." : "Hazır değil."}",
+            "${order.duelWinner != null ? "Düello Kazananı: ${order.duelWinner}" : "Sipariş Numarası: ${order.orderId}"} , Toplam Ücret: ${order.totalPrice}₺, ${order.isOrderReady ? "Hazır." : "Hazır değil."}",
             style: TextConsts.instance.regularBlack18Bold,
           ),
           subtitle: Text(

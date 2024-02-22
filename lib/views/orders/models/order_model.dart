@@ -4,7 +4,7 @@ class OrderModel {
   String timestamp;
   bool isOrderReady;
   String userId;
-  String? winnerName;
+  String? duelWinner;
   int orderId;
 
   OrderModel({
@@ -12,7 +12,7 @@ class OrderModel {
     required this.userId,
     required this.totalPrice,
     required this.timestamp,
-    this.winnerName,
+    this.duelWinner,
     required this.isOrderReady,
     required this.orderId,
   });
@@ -23,7 +23,7 @@ class OrderModel {
       'totalPrice': totalPrice,
       'timestamp': timestamp,
       'userId': userId,
-      'winnerName': winnerName,
+      'duelWinner': duelWinner,
       'isOrderReady': isOrderReady,
       'orderId': orderId,
     };
@@ -38,14 +38,14 @@ class OrderModel {
       timestamp: json['timestamp'] as String,
       isOrderReady: json['isOrderReady'] as bool,
       orderId: json['orderId'] as int,
-      winnerName: json['winnerName'] as String?,
+      duelWinner: json['duelWinner'] as String?,
       userId: json['userId'] as String,
     );
   }
 
   @override
   String toString() =>
-      "OrderModel(orderList: $orderList,totalPrice: $totalPrice,timestamp: $timestamp,isOrderReady: $isOrderReady,orderId: $orderId)";
+      "OrderModel(orderList: $orderList,totalPrice: $totalPrice,timestamp: $timestamp,isOrderReady: $isOrderReady,orderId: $orderId, winner:$duelWinner)";
 
   @override
   int get hashCode =>
