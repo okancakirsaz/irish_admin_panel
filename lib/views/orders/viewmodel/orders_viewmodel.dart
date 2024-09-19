@@ -109,10 +109,12 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
 
     if (rawList == null) {
       //Dependency Injection
-      await MenuViewModel().getMenu();
+      final MenuViewModel menuVm = MenuViewModel();
+      menuVm.setContext(viewModelContext);
+      await menuVm.getMenu();
       rawList = localeManager.getJsonData(LocaleKeysEnums.menu.name);
     }
-    for (Map<String, dynamic> element in rawList!) {
+    for (Map<String, dynamic> element in rawList ?? []) {
       menu.add(MenuItemModel.fromJson(element));
       menuItemCounts.add(1);
     }
